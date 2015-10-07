@@ -1,6 +1,5 @@
 package org.juzu.exoinvitefriend.portlet.commons.services;
 
-import com.google.caja.util.Json;
 import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.services.jcr.ext.app.SessionProviderService;
 import org.exoplatform.services.jcr.ext.common.SessionProvider;
@@ -61,6 +60,8 @@ public class JCRImpl implements IService {
   public void init(){
     emailService = new EmailService(identityManager,mailService);
   }
+
+
   private Node getOrCreateAppHome() throws Exception {
     Node appHome = null;
     SessionProvider sProvider = sessionProviderService.getSystemSessionProvider(null);
@@ -77,10 +78,14 @@ public class JCRImpl implements IService {
     }
     return appHome;
   }
+
+
   private void setNodeProperties(Node aNode,Invitation invitation) throws RepositoryException {
     Set<String> invitee_emails = invitation.getInvitee_emails();
     aNode.setProperty(NODE_PROP_INVITEES,invitee_emails.toArray(new String[invitee_emails.size()]));
   }
+
+
   private Invitation transferNode2Account(Node node) throws RepositoryException {
     if (null == node)
       return null;
@@ -144,6 +149,7 @@ public class JCRImpl implements IService {
     }
     return null;
   }
+
   private Map<String, String> processCheckEXOEmail(String email){
     Map<String, String> result = new HashMap<String, String>();
     result.put("result",Email_VALID_OK);
@@ -174,9 +180,18 @@ public class JCRImpl implements IService {
     }
     return result;
   }
+
   @Override
-  public JSONObject sendInvitation(String inviter, String invitee, String invitationUrl) {
+  public JSONObject createNode(String inviter, String invitee, String invitationUrl) {
     JSONObject result = new JSONObject();
+
+    try {
+      result.put("msg",invitee);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
+    /*
     Map<String, String> emailFormat = this.processCheckEXOEmail(invitee);
     String emailResult = emailFormat.get("result");
     String emailMsg = emailFormat.get("msg");
@@ -184,11 +199,7 @@ public class JCRImpl implements IService {
       if (null == invitationUrl || "".equals(invitationUrl)){
         invitationUrl = System.getProperty("exo.base.url");
       }
-/*      String senderEmailEncoded = emailInvitee+"-"+currentIdentity.getProfile().getEmail();
-      senderEmailEncoded = Base64.encode(senderEmailEncoded) ;
-      String strUrl = uriInfo.getRequestUri().getScheme()+"://"+uriInfo.getRequestUri().getHost()+":"+uriInfo.getRequestUri().getPort()+"/portal/intranet/register/";
-      URI location = URI.create(strUrl+"?invitedemail="+emailInvitee+"&referreremail="+senderEmailEncoded);
-      result.put("url",location.toURL().toString());*/
+
       emailMsg = "sent successfully";
       if(!this.emailService.sendInvitation(inviter,invitee,invitationUrl)){
         emailMsg = "Something went wrong, we cannot send your invitation, please try it later";
@@ -201,8 +212,8 @@ public class JCRImpl implements IService {
       log.error("ERR exo-invite-friend error: generate json object");
       result = null;
     }
+    */
     return result;
-
   }
 
 }

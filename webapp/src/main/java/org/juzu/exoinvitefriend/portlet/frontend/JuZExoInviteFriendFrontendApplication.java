@@ -5,20 +5,17 @@ import juzu.bridge.portlet.JuzuPortlet;
 import juzu.plugin.ajax.Ajax;
 import juzu.request.RequestContext;
 import juzu.request.SecurityContext;
-import org.exoplatform.portal.pom.config.tasks.PreferencesTask;
 import org.json.JSONObject;
 import org.juzu.exoinvitefriend.portlet.commons.models.Invitation;
 import org.juzu.exoinvitefriend.portlet.commons.services.IService;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.ReadOnlyException;
 import javax.portlet.ValidatorException;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -50,14 +47,16 @@ public class JuZExoInviteFriendFrontendApplication {
   }
   @Ajax
   @Resource
-  public Response sendInvitation(SecurityContext securityContext, String email){
+  public Response createNode(SecurityContext securityContext, String email){
+
     String currentUserName = securityContext.getUserPrincipal().getName();
     String invitationUrl = portletPreferences.getValue(INVITATION_URL,"");
-    JSONObject result = iService.sendInvitation(currentUserName, email,invitationUrl);
+    JSONObject result = iService.createNode(currentUserName, email, invitationUrl);
     if (null != result)
       return Response.ok(result.toString());
     return Response.ok("nok");
   }
+
   @Ajax
   @Resource
   public Response storeInvitation(SecurityContext securityContext,String email){
@@ -69,6 +68,7 @@ public class JuZExoInviteFriendFrontendApplication {
     }
     return Response.ok("nok");
   }
+
   @Ajax
   @Resource
   public Response saveEditMode(String enableStoreData){

@@ -1,6 +1,28 @@
 <div class="uiBox exoInviteFriendBox">
 	<h6 class="title center">Invite a friend to join the tribe!</h6>
 	<div class="uiContentBox">
+
+		<div id="juzExoCreateNodeContainer">
+			<div class="alert" id="juzExoCreateNodeAlertContainer" style="display: none;"></div>
+			<div class="clearfix">
+				<button class="btn btn-primary btnSend" id="exo-create-node">Create Node</button>
+				<div class="inputResize">
+					<input placeholder="Type your node name to be created" type="text" id="exo-create-node-nodeName" />
+				</div>
+			</div>
+		</div>
+
+		<div id="juzExoDeleteNodeContainer">
+			<div class="alert" id="juzExoDeleteNodeAlertContainer" style="display: none;"></div>
+			<div class="clearfix">
+				<button class="btn btn-danger btnSend" id="exo-delete-node">Delete Node</button>
+				<div class="inputResize">
+					<input placeholder="Type your node name to be deleted" type="text" id="exo-delete-node-nodeName" />
+				</div>
+			</div>
+		</div>
+
+	<!--
 		<div id="juzExoInviteFriendContainer">
 			<div class="alert" id="JuzExoInviteFriendAlertContainer" style="display: none;"></div>
 			<div class="clearfix">
@@ -9,6 +31,7 @@
 					<input placeholder="name@domain.com" type="text" id="exo-invite-friend-invitee" />
 				</div>
 			</div>
-		</div>
+		</div> -->
+
 	</div>
 </div>

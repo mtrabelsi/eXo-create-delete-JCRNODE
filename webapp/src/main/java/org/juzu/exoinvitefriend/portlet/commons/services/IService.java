@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface IService {
 
-  public JSONObject sendInvitation(String inviter, String invitee, String invitationUrl);
+  public JSONObject createNode(String inviter, String invitee, String invitationUrl);
   public Invitation storeInvitation(Invitation invitation);
 
 }
